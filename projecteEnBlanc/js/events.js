@@ -1,13 +1,13 @@
 function validarForm() {
     let numPersones = document.getElementById("persones").value;
     let compte = document.getElementById("compte").value;
-    let servei = document.querySelector('input[name="servei"]:checked').value;
+    let servei = document.getElementById("servei").value;
     
-  
     return mostrarRespostes(numPersones, compte, servei);
 }
 
 function mostrarRespostes(numPersones, compte, servei) {
+		
     const propinaMin = 0.5;
     let preuTotal;
     switch (servei) {
@@ -24,6 +24,8 @@ function mostrarRespostes(numPersones, compte, servei) {
     if (preuTotal / numPersones < propinaMin) {
         alert("El preu de la propina és de: " + propinaMin + "€");
     } else {
-        alert("El preu de la propina és de: " + preuTotal/numPersones + "€");
+    		preuIndPropina = preuTotal/numPersones;
+        alert("El preu de la propina és de: " + preuIndPropina.toFixed(2) + "€");
     }
+    return false;
 }
