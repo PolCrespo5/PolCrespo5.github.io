@@ -28,6 +28,7 @@
         <meta name="viewport" content="width=devide-width, initial-scale=1.0">
         <title>Calculador Propines</title>
         <link rel="stylesheet" href="style/styles.css">
+        <script src="js/events.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </head>
@@ -39,10 +40,10 @@
                 <label class="col-4">Quin és el total de la factura?</label>
                 <label class="col-4">Opina sobre el seu servei</label>
             </div>
-            <div class="row">
-                <input class="col-4" type="number" id="persones" min="1" margin="10px">
-                <input class="col-4" id="compte" margin="10px">
-                <select class="col-4" name="servei" margin="10px" placeholder="Escull...">
+            <div class="row" margin="10px">
+                <input class="col-4" type="number" id="persones" min="1">
+                <input class="col-4" id="compte">
+                <select class="col-4" name="servei" placeholder="Escull...">
                     <option value="horrible">Horrible</option>
                     <option value="acceptable">Acceptable</option>
                     <option value="genial">Genial</option>
