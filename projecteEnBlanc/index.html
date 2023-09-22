@@ -33,21 +33,22 @@
     </head>
     <body>
         <form class="container-fluid" id="myForm" onsubmit="return validarForm()">
-            <h1 class="row" style="height: 200px">Calcula una propina justa</h1>
-            <div class="row" style="height: 200px">
+            <h1 class="row">Calcula una propina justa</h1>
+            <div class="row">
                 <label class="col-4">Quants som?</label>
                 <label class="col-4">Quin és el total de la factura?</label>
                 <label class="col-4">Opina sobre el seu servei</label>
             </div>
-            <div class="row" style="height: 200px">
-                <input class="col-4" type="number" id="persones">
-                <input class="col-4" type="number" id="compte" min="0">
+            <div class="row">
+                <input class="col-4" type="number" id="persones" min="1">
+                <input class="col-4" id="compte">
                 <select class="col-4" name="servei">
                     <option value="horrible">Horrible</option>
                     <option value="acceptable">Acceptable</option>
                     <option value="genial">Genial</option>
                 </select>
             </div>
+            <input class="row" style="height: 200px" type="submit" value="Calcula la propina">
         </form>
     </body>
 </html>
