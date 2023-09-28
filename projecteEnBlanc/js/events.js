@@ -1,7 +1,7 @@
 function validarForm() {
-    let numPersones = document.getElementById("persones").value;
-    let compte = document.getElementById("compte").value;
-    let servei = document.getElementById("servei").value;
+    let numPersones = document.forms.myForm.persones.value;
+    let compte = document.forms.myForm.compte.value;
+    let servei = document.forms.myForm.servei.value;
     
     if (isNaN(compte)) {
     	return mostrarError();
@@ -12,10 +12,6 @@ function validarForm() {
     return mostrarRespostes(numPersones, compte, servei);
 }
 
-function isFloat(n){
-  return Number(n) === n && n % 1 !== 0;
-}
-
 function mostrarError() {
 	alert("Omple els camps correctament!");
   return false;
@@ -24,16 +20,18 @@ function mostrarError() {
 function mostrarRespostes(numPersones, compte, servei) {
 		
     const propinaMin = 0.50;
+    const percentatgeAcceptable = 5;
+    const percentatgeGenial = 10;
     let preuTotal;
     switch (servei) {
         case "acceptable":
-            preuTotal = compte * (5 / 100);
+            preuTotal = compte * (percentatgeAcceptable / 100);
             break;
         case "genial":
-            preuTotal = compte * (10 / 100);
+            preuTotal = compte * (percentatgeGenial / 100);
             break;  
         default:
-            preuTotal = compte * (0 / 100);
+            preuTotal = 0;
             break;
     }
     if (preuTotal / numPersones < propinaMin) {
@@ -42,6 +40,6 @@ function mostrarRespostes(numPersones, compte, servei) {
     		preuIndPropina = preuTotal/numPersones;
         alert("El preu de la propina és de: " + preuTotal.toFixed(2) + "€\nCada persona haurà de pagar: " + preuIndPropina.toFixed(2) + "€");
     }
-    document.getElementById("myForm").reset();
+    document.forms.myForm.reset();
     return false;
 }
