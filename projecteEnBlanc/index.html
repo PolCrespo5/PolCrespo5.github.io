@@ -33,24 +33,28 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </head>
     <body>
-        <form class="container-fluid" id="myForm" onsubmit="return validarForm()">
-            <h1 class="row">Calcula una propina justa</h1>
-            <div class="row">
-                <label class="col-4">Quants som?</label>
-                <label class="col-4">Quin és el total de la factura?</label>
-                <label class="col-4">Opina sobre el seu servei</label>
-            </div>
-            <div class="row" margin="10px">
-                <input class="col-4" type="number" id="persones" min="1">
-                <input class="col-4" id="compte">
-                <select class="col-4" id="servei" placeholder="Escull...">
-                    <option value="horrible">Horrible</option>
-                    <option value="acceptable">Acceptable</option>
-                    <option value="genial">Genial</option>
-                </select>
-            </div>
-            <input class="row btn btn-primary" type="submit" value="Calcula la propina">
-        </form>
+      <div class="card m-1">
+        <h5 class="card-header">Calcula una propina justa</h5>
+        <div class="card-body">
+          <form class="container-fluid" id="myForm" onsubmit="return validarForm()">
+              <div class="row">
+                  <label class="col-4 mb-4">Quants som?</label>
+                  <label class="col-4 mb-4">Quin és el total de la factura?</label>
+                  <label class="col-4 mb-4">Opina sobre el seu servei</label>
+              </div>
+              <div class="row">
+                  <input class="col-4 mb-4" type="number" id="persones" min="1">
+                  <input class="col-4 mb-4 mx-1" id="compte" required>
+                  <select class="col-3 mb-4" id="servei" placeholder="Escull..." required>
+                      <option value="horrible">Horrible</option>
+                      <option value="acceptable">Acceptable</option>
+                      <option value="genial">Genial</option>
+                  </select>
+              </div>
+              <input class="row btn btn-primary" type="submit" value="Calcula la propina">
+          </form>
+        </div>
+      </div>
     </body>
 </html>
 
