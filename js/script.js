@@ -71,38 +71,26 @@ function centerCamera() {
 // Carga del modelo 3D
 function loadModel() {
     const assetLoader = new GLTFLoader();
-    assetLoader.load(roomModelUrl.href, function (gltf) {
-        model = gltf.scene;
-        scene.add(model);
-
-        const boundingBox = new THREE.Box3().setFromObject(model);
-        cameraOriginalPosition = boundingBox.getCenter(new THREE.Vector3());
-        const size = boundingBox.getSize(new THREE.Vector3());
-
-        const maxDistance = Math.max(size.x , size.y, size.z);
-        cameraOriginalDistance = maxDistance / Math.sin(Math.PI /4);
-
-        // Ajusta la posición de la cámara para centrar el modelo 3D en medio de la escena
-        camera.position.set(cameraOriginalPosition.x-22, cameraOriginalPosition.y+8, cameraOriginalPosition.z+5 + cameraOriginalDistance);
-        camera.lookAt(scene.position);
-
-        mixer = new THREE.AnimationMixer(model);
-        const clips = gltf.animations;
-
-        clips.forEach(function (clip) {
-            const action = mixer.clipAction(clip);
-            action.play();
-        }); 
-    }, undefined, function (error) {
-        console.error(error);
-    });
     const assetLoader2 = new GLTFLoader();
-    assetLoader2.load(letterModelUrl.href, function (gltf) {
-        const model2 = gltf.scene;
+    const loadModel1 = new Promise((resolve, reject) => {
+        assetLoader.load(roomModelUrl.href, resolve, undefined, reject);
+    });
+    
+    const loadModel2 = new Promise((resolve, reject) => {
+        assetLoader2.load(letterModelUrl.href, resolve, undefined, reject);
+    });
+    Promise.all([loadModel1, loadModel2])
+    .then(([gltf1, gltf2]) => {
+        model = gltf1.scene;
+        const model2 = gltf2.scene;
+
+        scene.add(model);
         scene.add(model2);
+
         const boundingBox = new THREE.Box3().setFromObject(model);
         cameraOriginalPosition = boundingBox.getCenter(new THREE.Vector3());
         const size = boundingBox.getSize(new THREE.Vector3());
+
         const maxDistance = Math.max(size.x , size.y, size.z);
         cameraOriginalDistance = maxDistance / Math.sin(Math.PI /4);
 
@@ -111,15 +99,29 @@ function loadModel() {
         camera.lookAt(scene.position);
 
         mixer = new THREE.AnimationMixer(model);
-        const clips = gltf.animations;
+        const clips = gltf1.animations;
 
         clips.forEach(function (clip) {
             const action = mixer.clipAction(clip);
             action.play();
-        }); 
-    }, undefined, function (error) {
+        });
+        document.getElementById('skip').style.display = 'flex'; // Ocultar el loader
+       
+        const kineticElements = document.querySelectorAll('.kinetic');
+        // Ocultar cada elemento encontrado
+        kineticElements.forEach(element => {
+            element.style.display = 'none';
+        });
+
+        document.getElementById('skip').addEventListener('click', () => {
+            document.getElementById('loader').style.display = 'none'; // Ocultar el loader
+        });
+    })
+    .catch(error => {
         console.error(error);
+        // Maneja cualquier error de carga aquí
     });
+    
 }
 
 // --------------------------- LIGHTS ------------------------------

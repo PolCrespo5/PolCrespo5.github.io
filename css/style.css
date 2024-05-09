@@ -1,5 +1,23 @@
+:root {
+    --text: hsl(0, 0%, 99%);
+    --textDim: hsl(0, 0%, 60%);
+    --background: hsl(0, 0%, 7%);
+    --primary: hsl(155, 100%, 65%);
+    --primaryBg: hsla(155, 100%, 65%, 1%);
+    --primaryHi: hsla(155, 100%, 75%, 25%);
+    --primaryFg: hsl(155, 100%, 85%);
+    --secondary: hsl(156, 51%, 14%);
+    --secondaryFg: hsl(156, 51%, 75%);
+    --secondaryBg: hsla(156, 51%, 14%, 5%);
+    --secondaryHi: hsla(156, 51%, 30%, 50%);
+    --accent: hsl(155, 100%, 94%);
+    --accentBg: hsla(155, 100%, 94%, 1%);
+    --accentHi: hsla(155, 100%, 100%, 25%);
+  }
+
 body {
-    margin: 0
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
 }
 
 .center-btn {
@@ -14,3 +32,124 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.loading-text {
+    position: absolute;
+    color: var(--primaryFg);
+    font-size: 30px;
+    font-weight: bold;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.info-text {
+    position: absolute;
+    color: var(--accentHi);
+    font-size: 25px;
+    font-weight: bold;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.button {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    height: 50px;
+    width: 160px;
+    z-index: 9999;
+  }
+  
+  .button-skip {
+    height: 50px;
+    width: 160px;
+    border: none;
+    border-radius: 13px;
+    background-color: var(--primaryBg);
+    box-shadow: 0px -3px 15px 0px var(--primaryHi) inset;
+    color: var(--primaryFg);
+    font-family: "Manrope";
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transform: translateY(0px);
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+.button-skip:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 15px 0px var(--primaryHi) inset;
+  }
+  
+
+.kinetic {
+    height: 80px;
+    position: relative;
+    width: 80px;
+  }
+  
+  .kinetic::after,
+  .kinetic::before {
+    animation: rotateA 2s linear infinite 0.5s;
+    border: 50px solid transparent;
+    border-bottom-color: var(--primaryHi);
+    box-shadow: 0px -3px 15px 0px var(--accent) inset;
+    content: "";
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+  }
+  
+  .kinetic::before {
+    animation: rotateB 2s linear infinite;
+    transform: rotate(90deg);
+  }
+  
+  @keyframes rotateA {
+    0%,
+    25% {
+      transform: rotate(0deg);
+    }
+    50%,
+    75% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes rotateB {
+    0%,
+    25% {
+      transform: rotate(90deg);
+    }
+    50%,
+    75% {
+      transform: rotate(270deg);
+    }
+    100% {
+      transform: rotate(450deg);
+    }
+  }
+  
