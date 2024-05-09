@@ -1,0 +1,97 @@
+.about-me-container {
+    height: 48vh;
+    width: 43vw;
+    background: #333;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.about-me-frame {
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    background: #000;
+    color: #555;
+    border-radius: 10px;
+}
+
+.desktop {
+    flex: 1;
+    background-image: url("../assets/icons/windows10back.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .icon {
+    position: absolute;
+    aspect-ratio: 1 / 1.25;
+    height: 50px;
+    margin: 15px;
+    background-image: url("../assets/icons/trash.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .icon::after {
+    position: absolute;
+    left: 50%;
+    bottom: -25px;
+    transform: translateX(-50%);
+  }
+  
+  .taskbar {
+    position: relative;
+    height: 50px;
+    background-color: #1f252a;
+    display: flex;
+  }
+  
+  .left,
+  .right {
+    flex: 1;
+    display: flex;
+  }
+  
+  .right {
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+  }
+  
+  .shortcut {
+    aspect-ratio: 1 / 1;
+    height: 25px;
+    margin: 12.5px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .shortcut.start {
+    background-image: url("../assets/icons/windows10.png");
+  }  
+  .shortcut.file-explorer {
+    background-image: url("../assets/icons/explore-folder.png");
+  }
+  
+  .menu-container {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    transform: translate(0, -100%);
+    width: 200px;
+    background-color: #1f252a90;
+}
+
+.menu-item {
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+}

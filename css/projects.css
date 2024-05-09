@@ -1,0 +1,49 @@
+.project-container {
+    height: 83vh;
+    width: 41vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background: #ebd6ae;
+    color: #333;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+
+.project-description {
+    margin-bottom: 20px;
+}
+
+.project-tags {
+    margin-bottom: 20px;
+}
+
+.tag {
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.project-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.salir-button, .ver-en-github-button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.salir-button:hover, .ver-en-github-button:hover {
+    background-color: #555;
+    z-index: 10000;
+}
