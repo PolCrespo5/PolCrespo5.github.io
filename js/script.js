@@ -6,7 +6,7 @@ import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRe
 
 // Constantes y variables globales
 const roomModelUrl = new URL('../assets/room.glb', import.meta.url);
-const letterModelUrl = new URL('../assets/letter    .glb', import.meta.url);
+const letterModelUrl = new URL('../assets/letter.glb', import.meta.url);
 const renderer = new THREE.WebGLRenderer();
 const scene = new THREE.Scene();
 const aspectStartRatio = window.innerWidth / window.innerHeight;
@@ -31,17 +31,8 @@ loadModel();
 createLight();
 create2DRenderer();
 animate();
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 //--------------------------- INIT ------------------------------
-=======
-
-// Configuración inicial de la escena y la cámara
->>>>>>> parent of 6b62d39 (Continuing)
-=======
-
-// Configuración inicial de la escena y la cámara
->>>>>>> parent of 6b62d39 (Continuing)
 function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor('#444');
