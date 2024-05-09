@@ -3,13 +3,16 @@ import * as TWEEN from 'tween.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
+import { calculateObjectContainer } from './utilities.js';
+import { handleProjectSelection } from './projectUtils.js';
+import { generateCalendar } from './calendarUtil.js';
 
 // Constantes y variables globales
 const roomModelUrl = new URL('../assets/room.glb', import.meta.url);
 const letterModelUrl = new URL('../assets/letter.glb', import.meta.url);
 const renderer = new THREE.WebGLRenderer();
 const scene = new THREE.Scene();
-const aspectStartRatio = window.innerWidth / window.innerHeight;
+let aspectStartRatio = window.innerWidth / window.innerHeight;
 let camera;
 if (aspectStartRatio < 1) {
     camera = new THREE.PerspectiveCamera(70, aspectStartRatio, 0.1, 1000);
@@ -31,7 +34,6 @@ loadModel();
 createLight();
 create2DRenderer();
 animate();
-
 //--------------------------- INIT ------------------------------
 function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -41,8 +43,9 @@ function init() {
     orbit.update();
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('click', onMouseClick);
+    document.getElementById('center-camera').addEventListener('click', centerCamera);
 }
-
+// Configuración de OrbitControls
 function orbitSetttings() {
     orbit.panSpeed = 0.5;
     orbit.zoomSpeed = 0.5;
@@ -58,27 +61,13 @@ function orbitSetttings() {
     }
     orbit.minDistance = 20;
 }
-
-// LIGHTS
-function createLight() {
-    const dLight = new THREE.DirectionalLight('white', 0.8);
-    dLight.position.x = 20;
-    dLight.position.z = -20;
-    dLight.position.y = 30;
-    dLight.castShadow = true;
-    dLight.shadow.mapSize.width = 4096;
-    dLight.shadow.mapSize.height = 4096;
-    const d = 35;
-    dLight.shadow.camera.left = - d;
-    dLight.shadow.camera.right = d;
-    dLight.shadow.camera.top = d;
-    dLight.shadow.camera.bottom = - d;
-    scene.add(dLight);
-
-    const aLight = new THREE.AmbientLight('white', 0.7);
-    scene.add(aLight);
+// Centrar la cámara
+function centerCamera() {
+    camera.position.set(cameraOriginalPosition.x-22, cameraOriginalPosition.y+8, cameraOriginalPosition.z+5 + cameraOriginalDistance);
+    camera.lookAt(scene.position);
 }
 
+//--------------------------- LOAD MODEL ------------------------------
 // Carga del modelo 3D
 function loadModel() {
     const assetLoader = new GLTFLoader();
@@ -133,6 +122,29 @@ function loadModel() {
     });
 }
 
+// --------------------------- LIGHTS ------------------------------
+// LIGHTS
+function createLight() {
+    const dLight = new THREE.DirectionalLight('white', 0.3);
+    dLight.position.x = 20;
+    dLight.position.z = -20;
+    dLight.position.y = 30;
+    dLight.castShadow = true;
+    dLight.shadow.mapSize.width = 4096;
+    dLight.shadow.mapSize.height = 4096;
+    const d = 35;
+    dLight.shadow.camera.left = - d;
+    dLight.shadow.camera.right = d;
+    dLight.shadow.camera.top = d;
+    dLight.shadow.camera.bottom = - d;
+    scene.add(dLight);
+
+    const aLight = new THREE.AmbientLight('white', 0.2);
+    scene.add(aLight);
+}
+
+// --------------------------- RENDERERS ------------------------------
+// Crear renderizador 2D
 function create2DRenderer() {
     css2dRenderer.setSize(window.innerWidth, window.innerHeight);
     css2dRenderer.domElement.style.position = 'absolute';
@@ -141,6 +153,7 @@ function create2DRenderer() {
     document.body.appendChild(css2dRenderer.domElement);
 }
 
+// --------------------------- ANIMATION ------------------------------
 // Animación principal
 function animate() {
     requestAnimationFrame(animate);
@@ -150,15 +163,20 @@ function animate() {
     css2dRenderer.render(scene, camera);
 }
 
+// --------------------------- EVENT HANDLERS ------------------------------
 // Redimensionar ventana
 function onWindowResize() {
-    const aspectRatio = window.innerWidth / window.innerHeight;
-    // Actualizar la relación de aspecto de la cámara
-    camera.aspect = aspectRatio;
+    aspectStartRatio = window.innerWidth / window.innerHeight;
+    // // Actualizar la relación de aspecto de la cámara
+    
+    camera.aspect = aspectStartRatio;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     css2dRenderer.setSize(window.innerWidth, window.innerHeight);
-    if (aspectRatio < 1) {
+    if (!isOnObject) {   
+        centerCamera();
+    }
+    if (aspectStartRatio < 1) {
         orbit.maxDistance = 120;
     } else {
         orbit.maxDistance = 60;
@@ -177,6 +195,7 @@ function onMouseClick(event) {
 
     if (intersects.length > 0) {
         const objetoIntersectado = intersects[0].object;
+
         switch (objetoIntersectado.name) {
             case 'Project1':
                 updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
@@ -224,15 +243,19 @@ function updateCameraPosition(newPosition, object, x, y, z) {
             if (object === null) {
                 return;
             }
+            let projectData;
             switch (object.name) {
                 case 'Project1':
-                    handleProjectSelection('Project1');
+                    projectData = handleProjectSelection('Project1');
+                    create2DObject(projectData);
                     break;
                 case 'Project2':
-                    handleProjectSelection('Project2');
+                    projectData = handleProjectSelection('Project2');
+                    create2DObject(projectData);
                     break;
                 case 'Project3':
-                    handleProjectSelection('Project3');
+                    projectData = handleProjectSelection('Project3');
+                    create2DObject(projectData);
                     break;
                 case 'Calendar':
                     create2DObjectsCalendar();
@@ -248,21 +271,9 @@ function updateCameraPosition(newPosition, object, x, y, z) {
         tween.start();
 }
 
-// Centrar la cámara
-function centerCamera() {
-    updateCameraPosition(new THREE.Vector3(cameraOriginalPosition.x-22, cameraOriginalPosition.y+8, cameraOriginalPosition.z+5 + cameraOriginalDistance), null, -0.2, 0.1, 0.5);
-}
-
-
-
-
-// Botón para centrar la cámara
-const btnCenterCamera = document.getElementById('center-camera');
-btnCenterCamera.addEventListener('click', centerCamera);
-
-
-//Creación de etiquetas 2D
+//--------------------------- PROJECTS ------------------------------
 function create2DObject(projectData) {
+    let projectContainerDimension = calculateObjectContainer(0.45, 0.83, 1.25, 1.25);   
     const htmlContent = `
         <div>
             <h1 class="project-name">${projectData.name}</h1>
@@ -281,6 +292,8 @@ function create2DObject(projectData) {
     `;
     const div = document.createElement('div');
     div.className = 'project-container';
+    div.style.width = `${projectContainerDimension.containerWidth}px`;
+    div.style.height = `${projectContainerDimension.conatinerHeight}px`;
     div.innerHTML = htmlContent;
 
     div.addEventListener('click', event => event.stopPropagation());
@@ -306,64 +319,16 @@ function create2DObject(projectData) {
     });
 }
 
-// Manejo de eventos
-function handleProjectSelection(projectName) {
-    let projectData;
-
-    switch (projectName) {
-        case 'Project1':
-            projectData = {
-                name: "STREETFEED",
-                subtitle: "Solidary Food Delivery Platform",
-                description: "StreetFeed es una iniciativa solidaria que te permite colaborar para llevar comida a quienes más lo necesitan. Con StreetFeed, puedes unirte a una red de apoyo para entregar alimentos a personas en situación de vulnerabilidad",
-                video: "https://youtu.be/Em0NFr9DpF4",
-                tags: ["LARAVEL", "VUE"],
-                buttons: ["Salir", "Ver en GitHub"],
-                position: [14.900, 6.500, -4.000]
-            };
-            break;
-        case 'Project2':
-            projectData = {
-                name: "LIBE",
-                subtitle: "School Assistance",
-                description: "An attendance management app in educational institutions. It uses geolocation to track student presence, offers features like statistics, schedules, absence justifications, and notifications. Users include students, teachers, and classes. Simplify attendance management with our powerful app.",
-                video: "https://youtu.be/Em0NFr9DpF4",
-                tags: ["ANDROID STUDIO (KOTLIN)", ".NET"],
-                buttons: ["Salir", "Ver en GitHub"],
-                position: [14.900, 6.500, 2.000]
-            };
-            break;
-        case 'Project3':
-            projectData = {
-                name: "WEB SCRAPPING",
-                subtitle: "Macroeconomy Charts",
-                description: "With scrapy scripts in Python language, I have gathered data from bank websites, and i show it in graphs using the Dash library, and then on the web page you can analyze the data.",
-                video: "https://youtu.be/Em0NFr9DpF4",
-                tags: ["ANDROID STUDIO (KOTLIN)", ".NET"],
-                buttons: ["Salir", "Ver en GitHub"],
-                position: [14.900, 6.500, 8.000]
-            };
-            break;
-        default:
-            console.error('Project not found');
-            return;
-    }
-
-    create2DObject(projectData);
-}
-
+//--------------------------- CALENDAR ------------------------------
 function create2DObjectsCalendar() {
-    const htmlContent = `
-        <h1 class="project-name">La meva experencia</h1>
-        <h2 class="project-subtitle">Estudis</h2>
-        <p class="project-description">asjkkasdnkljasdndas jsahbdjkasbndkjndasjkds asdnkdjasnasdkjdnas jansdjknaskdjas nasd</p>
-        
-        <div class="project-buttons">
-            <button class="calendar-button">Salir</button>
-        </div>
-    `;
+    
+    let calendarContainerDimension = calculateObjectContainer(0.4, 0.992, 1.5, 1);
+    
+    const htmlContent = generateCalendar();
     const divAboutMe = document.createElement('div');
     divAboutMe.className = 'calendar-container';
+    divAboutMe.style.width = `${calendarContainerDimension.containerWidth}px`;
+    divAboutMe.style.height = `${calendarContainerDimension.conatinerHeight}px`;
     divAboutMe.innerHTML = htmlContent;
 
     divAboutMe.addEventListener('click', event => event.stopPropagation());
@@ -376,6 +341,26 @@ function create2DObjectsCalendar() {
     // Desactivar interacción con los objetos del modelo
     renderer.domElement.style.pointerEvents = 'none';
     css2dRenderer.domElement.style.pointerEvents = 'auto';
+
+    // Obtener los contenedores de trabajo y estudio
+    const workContainer = divAboutMe.querySelector('#workContainer');
+    const studyContainer = divAboutMe.querySelector('#studyContainer');
+
+    const switchWork = divAboutMe.querySelector('#switchWork');
+    switchWork.addEventListener('change', () => {
+        if (switchWork.checked) {
+            workContainer.style.display = 'block';
+            studyContainer.style.display = 'none';
+        }
+    });
+    const switchStudy = divAboutMe.querySelector('#switchStudy');
+    switchStudy.addEventListener('change', () => {
+        if (switchStudy.checked) {
+            workContainer.style.display = 'none';
+            studyContainer.style.display = 'block';
+        }
+    });
+
     const exitBtn = divAboutMe.querySelector('.calendar-button');
     exitBtn.addEventListener('click', () => {
         // Reactivar controles de la cámara
@@ -388,6 +373,7 @@ function create2DObjectsCalendar() {
     });
 }
 
+//--------------------------- ABOUT ME ------------------------------
 function create2DObjectsAboutMe() {
     const htmlContent = `
         <div class="about-me-frame">
