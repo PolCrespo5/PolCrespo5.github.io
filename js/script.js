@@ -197,7 +197,6 @@ function onMouseClick(event) {
 
     if (intersects.length > 0) {
         const objetoIntersectado = intersects[0].object;
-
         switch (objetoIntersectado.name) {
             case 'Project1':
                 updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
@@ -222,6 +221,11 @@ function onMouseClick(event) {
 
 // Actualizar posición de la cámara
 function updateCameraPosition(newPosition, object, x, y, z) {
+    orbit.enabled = false; // Deshabilitar controles de OrbitControls
+    isOnObject = true;
+    // Desactivar interacción con los objetos del modelo
+    renderer.domElement.style.pointerEvents = 'none';
+    css2dRenderer.domElement.style.pointerEvents = 'auto';
     const duration = 1;
     const params = {
         x: camera.position.x,
@@ -278,18 +282,35 @@ function create2DObject(projectData) {
     let projectContainerDimension = calculateObjectContainer(0.45, 0.83, 1.25, 1.25);   
     const htmlContent = `
         <div>
-            <h1 class="project-name">${projectData.name}</h1>
-            <h2 class="project-subtitle">${projectData.subtitle}</h2>
-            <p class="project-description">${projectData.description}</p>
-            <video width="90%" height="350" controls
-                src="${projectData.video}">
+            <div class="header-project">
+                <h1 class="project-name">${projectData.name}</h1>
+                <img class="project-image" src="../assets/logos/${projectData.image}" alt="${projectData.name}">
+            </div>
+            <div class="project-description-container">
+                <div class="project-description-container float">
+                    <p class="project-description">${projectData.description}</p>
+                </div>
+            </div>
         </div>
-        
         <div class="project-tags">
-            ${projectData.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${projectData.tags.map(tag => `
+            <div class="tag-item-container">
+                <div class="tag-item-container tag-item">
+                    <span>${tag}</span>
+                </div>
+            </div>`).join('')}
+        </div>
+        <div class="demo-container">
+            <div class="demo-button">
+                <img class="play-icon" src="../assets/logos/play.webp" alt="Github">
+            </div>
+            <div class="source-button">
+                <img class="github-icon" src="../assets/logos/github.svg" alt="Github">
+            </div>
         </div>
         <div class="project-buttons">
-            ${projectData.buttons.map(button => `<button class="${button.toLowerCase().replace(/\s/g, '-')}-button">${button}</button>`).join('')}
+            <button class="prev-button" alt="Previous">PREV</button>
+            <button class="next-button" alt="Next">NEXT</button>
         </div>
     `;
     const div = document.createElement('div');
@@ -304,12 +325,8 @@ function create2DObject(projectData) {
     scene.add(divContainer);
     divContainer.position.set(...projectData.position);
 
-    orbit.enabled = false; // Deshabilitar controles de OrbitControls
-    isOnObject = true;
-    // Desactivar interacción con los objetos del modelo
-    renderer.domElement.style.pointerEvents = 'none';
-    css2dRenderer.domElement.style.pointerEvents = 'auto';
-    const exitBtn = div.querySelector('.salir-button');
+    
+    const exitBtn = div.querySelector('.next-button');
     exitBtn.addEventListener('click', () => {
         // Reactivar controles de la cámara
         isOnObject = false;
@@ -338,11 +355,6 @@ function create2DObjectsCalendar() {
     const divContainer = new CSS2DObject(divAboutMe);
     scene.add(divContainer);
     divContainer.position.set(4.500, 7.8, -13.966);
-    orbit.enabled = false; // Deshabilitar controles de OrbitControls
-    isOnObject = true;
-    // Desactivar interacción con los objetos del modelo
-    renderer.domElement.style.pointerEvents = 'none';
-    css2dRenderer.domElement.style.pointerEvents = 'auto';
 
     // Obtener los contenedores de trabajo y estudio
     const workContainer = divAboutMe.querySelector('#workContainer');
@@ -409,11 +421,6 @@ function create2DObjectsAboutMe() {
     const divContainer = new CSS2DObject(divAboutMe);
     scene.add(divContainer);
     divContainer.position.set(5.7, -0.625, -12.5);
-    orbit.enabled = false; // Deshabilitar controles de OrbitControls
-    isOnObject = true;
-    // Desactivar interacción con los objetos del modelo
-    renderer.domElement.style.pointerEvents = 'none';
-    css2dRenderer.domElement.style.pointerEvents = 'auto';
     
     const startShortcut = divAboutMe.querySelector('.shortcut.start');
     startShortcut.addEventListener('click', () => {
