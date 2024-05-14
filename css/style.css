@@ -1,5 +1,4 @@
 :root {
-    --text: hsl(0, 0%, 99%);
     --textDim: hsl(0, 0%, 60%);
     --background: hsl(0, 0%, 7%);
     --primary: hsl(155, 100%, 65%);
@@ -13,6 +12,12 @@
     --accent: hsl(155, 100%, 94%);
     --accentBg: hsla(155, 100%, 94%, 1%);
     --accentHi: hsla(155, 100%, 100%, 25%);
+    --text: #F3F3F3;
+    --background: #6B6B6B;
+    --backgroundOpacity: #6B6B6BEE;
+    --backgroundSecondary: #3C3C3C;
+    --border: #0f0f0f;
+    --boxShadow: rgba(0, 0, 0, 0.5);
   }
 
 body {
@@ -22,22 +27,53 @@ body {
 
 .center-btn {
     position: absolute;
-    background-color: white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    right: 10px;
-    top: 10px;
+    background-color: var(--background);
+    border-radius: 10px;
+    width: 10%;
+    min-width: 200px;
+    height: 40px;
+    bottom: 20px;
+    right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text);
+    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
+    transition: all 0.2s ease;
 }
-
+.center-btn:hover {
+    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
+    background-color: var(--backgroundSecondary);
+}
+.help-btn {
+  position: absolute;
+  background-color: var(--background);
+  border-radius: 10px;
+  width: 10%;
+  min-width: 200px;
+  height: 40px;
+  bottom: 80px;
+  right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--text);
+  box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
+  transition: all 0.2s ease;
+}
+.help-btn:hover {
+    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
+    background-color: var(--backgroundSecondary);
+}
 #loader {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #222;
+    background-color: var(--background);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +81,7 @@ body {
 }
 .loading-text {
     position: absolute;
-    color: var(--primaryFg);
+    color: var(--text);
     font-size: 30px;
     font-weight: bold;
     bottom: 100px;
@@ -54,7 +90,7 @@ body {
 }
 .info-text {
     position: absolute;
-    color: var(--accentHi);
+    color: #d8d8d8;
     font-size: 25px;
     font-weight: bold;
     bottom: 60px;
@@ -70,21 +106,21 @@ body {
     text-decoration: none;
     color: inherit;
     cursor: pointer;
-    height: 50px;
-    width: 160px;
+    height: 80px;
+    width: 260px;
     z-index: 9999;
   }
   
   .button-skip {
-    height: 50px;
-    width: 160px;
+    height: 80px;
+    width: 260px;
     border: none;
     border-radius: 13px;
-    background-color: var(--primaryBg);
-    box-shadow: 0px -3px 15px 0px var(--primaryHi) inset;
-    color: var(--primaryFg);
-    font-family: "Manrope";
-    font-size: 1rem;
+    background-color: var(--backgroundSecondary);
+    box-shadow: 0px -3px 15px 0px var(--background) inset;
+    color: var(--text);
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +132,7 @@ body {
   }
 .button-skip:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 0px 15px 0px var(--primaryHi) inset;
+    box-shadow: 0px 0px 15px 0px var(--background) inset;
   }
   
 
@@ -110,8 +146,8 @@ body {
   .kinetic::before {
     animation: rotateA 2s linear infinite 0.5s;
     border: 50px solid transparent;
-    border-bottom-color: var(--primaryHi);
-    box-shadow: 0px -3px 15px 0px var(--accent) inset;
+    border-bottom-color: var(--background);
+    box-shadow: 0px -3px 15px 0px var(--backgroundSecondary) inset;
     content: "";
     height: 0;
     left: 0;
@@ -124,7 +160,54 @@ body {
     animation: rotateB 2s linear infinite;
     transform: rotate(90deg);
   }
-  
+  .helper-container {
+    position: absolute;
+    width: 70%;
+    height: 70%;
+    min-height: 300px;
+    min-width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--backgroundOpacity);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 1.5rem;  
+  }
+  .helper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .helper-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  .helper-button {
+    margin-top: 20px;
+    font-size: 1.5rem;
+    width: 50%;
+    min-width: 200px;
+    height: 50px;
+    background-color: var(--backgroundSecondary);
+    border: 2px solid var(--border);
+    color: var(--text);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
   @keyframes rotateA {
     0%,
     25% {

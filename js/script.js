@@ -27,6 +27,7 @@ let model;
 let mixer;
 let cameraOriginalPosition, cameraOriginalDistance;
 let isOnObject = false;
+let isLoaded = false;
 
 // Inicializar la escena y cargar el modelo 3D
 init();
@@ -44,6 +45,7 @@ function init() {
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('click', onMouseClick);
     document.getElementById('center-camera').addEventListener('click', centerCamera);
+    document.getElementById('help-btn').addEventListener('click', helper);
 }
 // Configuración de OrbitControls
 function orbitSetttings() {
@@ -79,11 +81,11 @@ function loadModel() {
     const loadModel2 = new Promise((resolve, reject) => {
         assetLoader2.load(letterModelUrl.href, resolve, undefined, reject);
     });
+
     Promise.all([loadModel1, loadModel2])
     .then(([gltf1, gltf2]) => {
         model = gltf1.scene;
         const model2 = gltf2.scene;
-
         scene.add(model);
         scene.add(model2);
 
@@ -106,7 +108,6 @@ function loadModel() {
             action.play();
         });
         document.getElementById('skip').style.display = 'flex'; // Ocultar el loader
-       
         const kineticElements = document.querySelectorAll('.kinetic');
         // Ocultar cada elemento encontrado
         kineticElements.forEach(element => {
@@ -115,6 +116,9 @@ function loadModel() {
 
         document.getElementById('skip').addEventListener('click', () => {
             document.getElementById('loader').style.display = 'none'; // Ocultar el loader
+            setTimeout(() => {
+                isLoaded = true;
+            }, 50);
         });
     })
     .catch(error => {
@@ -187,7 +191,7 @@ function onWindowResize() {
 
 // Manejar clic del ratón
 function onMouseClick(event) {
-    if (isOnObject) {
+    if (isOnObject || !isLoaded) {
         return;
     }
     mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
@@ -309,8 +313,8 @@ function create2DObject(projectData) {
             </div>
         </div>
         <div class="project-buttons">
-            <button class="prev-button" alt="Previous">PREV</button>
-            <button class="next-button" alt="Next">NEXT</button>
+            ${projectData.prev != null ? `<button class="prev-button" alt="Previous">PREV</button>` : '<span></span>'}
+            ${projectData.next != null ? `<button class="next-button" alt="Next">NEXT</button>` : `<button class="next-button" alt="home">HOME</button>`}
         </div>
     `;
     const div = document.createElement('div');
@@ -325,7 +329,16 @@ function create2DObject(projectData) {
     scene.add(divContainer);
     divContainer.position.set(...projectData.position);
 
+    const demoBtn = div.querySelector('.demo-button');
+    demoBtn.addEventListener('click', () => {
+        window.open(projectData.redirectDemo);
+    });
     
+    const sourceBtn = div.querySelector('.source-button');
+    sourceBtn.addEventListener('click', () => {
+        window.open(projectData.redirectGithub);
+    });
+
     const exitBtn = div.querySelector('.next-button');
     exitBtn.addEventListener('click', () => {
         // Reactivar controles de la cámara
@@ -334,8 +347,35 @@ function create2DObject(projectData) {
         renderer.domElement.style.pointerEvents = 'auto';
         css2dRenderer.domElement.style.pointerEvents = 'none';
         scene.remove(divContainer);
-        centerCamera();
+        if (projectData.next === 'Project2') {
+            const objetoIntersectado = model.getObjectByName('Project2');
+            updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
+        } else if (projectData.next === 'Project3') {
+            const objetoIntersectado = model.getObjectByName('Project3');
+            updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
+        } else {
+            centerCamera();
+        }
     });
+    const prevBtn = div.querySelector('.prev-button');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            isOnObject = false;
+            orbit.enabled = true;
+            renderer.domElement.style.pointerEvents = 'auto';
+            css2dRenderer.domElement.style.pointerEvents = 'none';
+            scene.remove(divContainer);
+            if (projectData.prev === 'Project1') {
+                const objetoIntersectado = model.getObjectByName('Project1');
+                updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
+            } else if (projectData.prev === 'Project2') {
+                const objetoIntersectado = model.getObjectByName('Project2');
+                updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
+            } else {
+                centerCamera();
+            }
+        });
+    }
 }
 
 //--------------------------- CALENDAR ------------------------------
@@ -457,5 +497,29 @@ function showMenu(divContainer) {
         css2dRenderer.domElement.style.pointerEvents = 'none';
         scene.remove(divContainer);
         centerCamera();
+    });
+}
+
+function helper() {
+    const helper = document.querySelector('.helper-container');
+    if (helper) {
+        helper.remove();
+        return;
+    }
+    const helperHTML = `
+        <div class="helper">
+            <p class="helper-item">Click on the projects to see more details</p>
+            <p class="helper-item">Click on the calendar to see my experience</p>
+            <p class="helper-item">Click on the desktop to see the menu</p>
+            <button class="helper-button">Close</button>
+        </div>
+    `;
+    const helperContainer = document.createElement('div');
+    helperContainer.innerHTML = helperHTML;
+    helperContainer.classList.add('helper-container');
+    document.body.appendChild(helperContainer);
+    const closeBtn = helperContainer.querySelector('.helper-button');
+    closeBtn.addEventListener('click', () => {
+        helperContainer.remove();
     });
 }

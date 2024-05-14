@@ -1,19 +1,9 @@
 :root {
-    --text: hsl(0, 0%, 99%);
-    --textDim: hsl(0, 0%, 60%);
-    /*background #6B6B6B*/
+    --text: #F3F3F3;
     --background: #6B6B6B;
-    --primary: hsl(155, 100%, 65%);
-    --primaryBg: hsla(155, 100%, 65%, 1%);
-    --primaryHi: hsla(155, 100%, 75%, 25%);
-    --primaryFg: hsl(155, 100%, 85%);
-    --secondary: hsl(156, 51%, 14%);
-    --secondaryFg: hsl(156, 51%, 75%);
-    --secondaryBg: hsla(156, 51%, 14%, 5%);
-    --secondaryHi: hsla(156, 51%, 30%, 50%);
-    --accent: hsl(155, 100%, 94%);
-    --accentBg: hsla(155, 100%, 94%, 1%);
-    --accentHi: hsla(155, 100%, 100%, 25%);
+    --backgroundSecondary: #3C3C3C;
+    --border: #0f0f0f;
+    --boxShadow: rgba(0, 0, 0, 0.5);
 }
 
 .project-container {
@@ -38,8 +28,8 @@
 .project-name {
     font-size: 4rem;
     font-weight: bold;
-    -webkit-text-fill-color: #F3F3F3; /* Color del texto interior */
-    -webkit-text-stroke-color: #000000; /* Color del borde */
+    -webkit-text-fill-color: var(--text);
+    -webkit-text-stroke-color: var(--border);
     -webkit-text-stroke-width: 2px;
 }
 
@@ -50,8 +40,8 @@
 
 .project-description-container {
     position: relative;
-    background: #3C3C3C;
-    border: 2px solid black;
+    background: var(--backgroundSecondary);
+    border: 2px solid var(--border);
     border-radius: 8px;
     height: 200px;
     max-width: 100%;
@@ -64,7 +54,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #6B6B6B;
+    background-color: var(--background);
     left: -5px;
     bottom: 10px;
     right: 5px;
@@ -78,15 +68,15 @@
     padding: 25px;
     font-size: 1.5rem;
     line-height: 1.6;
-    color: #F3F3F3;
+    color: var(--text);
     bottom: 5px;
     right: 5px;
 }
 
 .tag-item-container {
     position: relative;
-    background: #3C3C3C;
-    border: 2px solid black;
+    background: var(--backgroundSecondary);
+    border: 2px solid var(--border);
     border-radius: 6px;
     height: 50px;
     min-height: 50px;
@@ -98,7 +88,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #6B6B6B;
+    background-color: var(--background);
     left: -7.5px;
     bottom: 7.5px;
     right: 7.5px;
@@ -126,27 +116,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #3C3C3C;
-    border: 2px solid black;
+    background-color: var(--backgroundSecondary);
+    border: 2px solid var(--border);
     color: var(--text);
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
     width: 70%;
     height: 100%;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 0 var(--boxShadow);
 }
 
 .source-button {
     background-color: #603870;
     color: var(--text);
     padding: 10px 20px;
-    border: 2px solid black;
+    border: 2px solid var(--border);
     border-radius: 5px;
     cursor: pointer;
     width: 20%;
     height: 100%;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 0 var(--boxShadow);
 }
 
 .github-icon {
@@ -169,19 +159,19 @@
 .next-button, .prev-button {
     height: 60px;
     width: 60px;
-    background-color: #6B6B6B;
-    border: 2px solid black;
-    color: #F3F3F3;
+    background-color: var(--background);
+    border: 2px solid var(--border);
+    color: var(--text);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px 0 var(--boxShadow);
 }
 
 .next-button:hover, .prev-button:hover {
-    background-color: #3C3C3C;
+    background-color: var(--backgroundSecondary);
     z-index: 10000;
 }
 
