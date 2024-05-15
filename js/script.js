@@ -306,7 +306,7 @@ function create2DObject(projectData) {
         </div>
         <div class="demo-container">
             <div class="demo-button">
-                <img class="play-icon" src="../assets/logos/play.webp" alt="Github">
+                <img class="play-icon" src="../assets/logos/play.webp" alt="Demo">
             </div>
             <div class="source-button">
                 <img class="github-icon" src="../assets/logos/github.svg" alt="Github">
