@@ -116,7 +116,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--backgroundSecondary);
+    background-color: #603870;
     border: 2px solid var(--border);
     color: var(--text);
     padding: 10px 20px;
@@ -128,7 +128,7 @@
 }
 
 .source-button {
-    background-color: #603870;
+    background-color: var(--backgroundSecondary);
     color: var(--text);
     padding: 10px 20px;
     border: 2px solid var(--border);
@@ -159,9 +159,10 @@
 .next-button, .prev-button {
     height: 60px;
     width: 60px;
-    background-color: var(--background);
+    background-color: var(--text);
     border: 2px solid var(--border);
-    color: var(--text);
+    color: var(--background);
+    font-weight: bold;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -171,7 +172,7 @@
 }
 
 .next-button:hover, .prev-button:hover {
-    background-color: var(--backgroundSecondary);
+    background-color: #d3d3d3;
     z-index: 10000;
 }
 

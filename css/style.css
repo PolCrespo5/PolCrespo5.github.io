@@ -1,21 +1,9 @@
 :root {
-    --textDim: hsl(0, 0%, 60%);
-    --background: hsl(0, 0%, 7%);
-    --primary: hsl(155, 100%, 65%);
-    --primaryBg: hsla(155, 100%, 65%, 1%);
-    --primaryHi: hsla(155, 100%, 75%, 25%);
-    --primaryFg: hsl(155, 100%, 85%);
-    --secondary: hsl(156, 51%, 14%);
-    --secondaryFg: hsl(156, 51%, 75%);
-    --secondaryBg: hsla(156, 51%, 14%, 5%);
-    --secondaryHi: hsla(156, 51%, 30%, 50%);
-    --accent: hsl(155, 100%, 94%);
-    --accentBg: hsla(155, 100%, 94%, 1%);
-    --accentHi: hsla(155, 100%, 100%, 25%);
     --text: #F3F3F3;
-    --background: #6B6B6B;
+    --primary: #6B6B6B;
     --backgroundOpacity: #6B6B6BEE;
-    --backgroundSecondary: #3C3C3C;
+    --secondary: #3C3C3C;
+    --callAction: #603870;
     --border: #0f0f0f;
     --boxShadow: rgba(0, 0, 0, 0.5);
   }
@@ -27,7 +15,7 @@ body {
 
 .center-btn {
     position: absolute;
-    background-color: var(--background);
+    background-color: var(--primary);
     border-radius: 10px;
     width: 10%;
     min-width: 200px;
@@ -40,16 +28,16 @@ body {
     cursor: pointer;
     font-weight: bold;
     color: var(--text);
-    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
+    box-shadow: 0px 0px 15px 0px var(--secondary) inset;
     transition: all 0.2s ease;
 }
 .center-btn:hover {
-    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
-    background-color: var(--backgroundSecondary);
+    box-shadow: 0px 0px 15px 0px var(--secondary) inset;
+    background-color: var(--secondary);
 }
 .help-btn {
   position: absolute;
-  background-color: var(--background);
+  background-color: var(--callAction);
   border-radius: 10px;
   width: 10%;
   min-width: 200px;
@@ -62,18 +50,18 @@ body {
   cursor: pointer;
   font-weight: bold;
   color: var(--text);
-  box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
+  box-shadow: 0px 0px 15px 0px #a984b9 inset;
   transition: all 0.2s ease;
 }
 .help-btn:hover {
-    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary) inset;
-    background-color: var(--backgroundSecondary);
+    box-shadow: 0px 0px 15px 0px var(--secondary) inset;
+    background-color: var(--secondary);
 }
 #loader {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--background);
+    background-color: var(--primary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -116,8 +104,8 @@ body {
     width: 260px;
     border: none;
     border-radius: 13px;
-    background-color: var(--backgroundSecondary);
-    box-shadow: 0px -3px 15px 0px var(--background) inset;
+    background-color: var(--callAction);
+    box-shadow: 0px -3px 15px 0px #a984b9 inset;
     color: var(--text);
     font-family: 'Poppins', sans-serif;
     font-size: 2.5rem;
@@ -132,7 +120,7 @@ body {
   }
 .button-skip:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 0px 15px 0px var(--background) inset;
+    box-shadow: 0px 0px 15px 0px var(--primary) inset;
   }
   
 
@@ -146,8 +134,8 @@ body {
   .kinetic::before {
     animation: rotateA 2s linear infinite 0.5s;
     border: 50px solid transparent;
-    border-bottom-color: var(--background);
-    box-shadow: 0px -3px 15px 0px var(--backgroundSecondary) inset;
+    border-bottom-color: var(--callAction);
+    box-shadow: 0px -3px 15px 0px var(--secondary) inset;
     content: "";
     height: 0;
     left: 0;
@@ -176,7 +164,7 @@ body {
     align-items: center;
     z-index: 1000;
     padding: 20px;
-    box-shadow: 0px 0px 15px 0px var(--backgroundSecondary);
+    box-shadow: 0px 0px 15px 0px var(--secondary);
     border-radius: 10px;
     color: var(--text);
     font-size: 1.5rem;  
@@ -201,7 +189,7 @@ body {
     width: 50%;
     min-width: 200px;
     height: 50px;
-    background-color: var(--backgroundSecondary);
+    background-color: var(--callAction);
     border: 2px solid var(--border);
     color: var(--text);
     padding: 10px 20px;
