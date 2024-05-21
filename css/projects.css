@@ -1,9 +1,13 @@
 :root {
     --text: #F3F3F3;
-    --background: #6B6B6B;
-    --backgroundSecondary: #3C3C3C;
+    --primary: #6B6B6B;
+    --backgroundOpacity: #6B6B6BEE;
+    --secondary: #3C3C3C;
+    --callAction: #603870;
     --border: #0f0f0f;
     --boxShadow: rgba(0, 0, 0, 0.5);
+    --font: 'Poppins', sans-serif;
+    --font-size: 1;
 }
 
 .project-container {
@@ -11,7 +15,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
-    background: var(--background);
+    background: var(--primary);
     color: var(--text);
     text-align: center;
     border-radius: 10px;
@@ -26,7 +30,7 @@
 }
 
 .project-name {
-    font-size: 4rem;
+    font-size: calc(4rem * var(--font-size));
     font-weight: bold;
     -webkit-text-fill-color: var(--text);
     -webkit-text-stroke-color: var(--border);
@@ -40,7 +44,7 @@
 
 .project-description-container {
     position: relative;
-    background: var(--backgroundSecondary);
+    background: var(--secondary);
     border: 2px solid var(--border);
     border-radius: 8px;
     height: 200px;
@@ -54,7 +58,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--background);
+    background-color: var(--primary);
     left: -5px;
     bottom: 10px;
     right: 5px;
@@ -66,7 +70,7 @@
     position: relative;
     text-align:justify ;
     padding: 25px;
-    font-size: 1.5rem;
+    font-size: calc(1.5rem * var(--font-size));
     line-height: 1.6;
     color: var(--text);
     bottom: 5px;
@@ -75,7 +79,7 @@
 
 .tag-item-container {
     position: relative;
-    background: var(--backgroundSecondary);
+    background: var(--secondary);
     border: 2px solid var(--border);
     border-radius: 6px;
     height: 50px;
@@ -88,7 +92,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--background);
+    background-color: var(--primary);
     left: -7.5px;
     bottom: 7.5px;
     right: 7.5px;
@@ -101,7 +105,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: calc(1.5rem * var(--font-size));
 }
 
 .demo-container {
@@ -128,7 +132,7 @@
 }
 
 .source-button {
-    background-color: var(--backgroundSecondary);
+    background-color: var(--secondary);
     color: var(--text);
     padding: 10px 20px;
     border: 2px solid var(--border);
@@ -161,7 +165,7 @@
     width: 60px;
     background-color: var(--text);
     border: 2px solid var(--border);
-    color: var(--background);
+    color: var(--primary);
     font-weight: bold;
     border-radius: 50%;
     display: flex;
@@ -183,13 +187,13 @@
         height: 90vh !important;
     }
     .project-name {
-        font-size: 2.5rem;
+        font-size: calc(2.5rem * var(--font-size));
     }
     .project-description {
-        font-size: 1.2rem;
+        font-size: calc(1.2rem * var(--font-size));
     }
     .project-tags {
-        font-size: 1.2rem;
+        font-size: calc(1.2rem * var(--font-size));
     }
     .tag-item-container {
         height: 40px;
@@ -205,5 +209,4 @@
         height: 50px;
         width: 50px;
     }
-    
 }

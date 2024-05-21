@@ -1,3 +1,15 @@
+:root {
+  --text: #F3F3F3;
+  --primary: #6B6B6B;
+  --backgroundOpacity: #6B6B6BEE;
+  --secondary: #3C3C3C;
+  --callAction: #603870;
+  --border: #0f0f0f;
+  --boxShadow: rgba(0, 0, 0, 0.5);
+  --font: 'Poppins', sans-serif;
+  --font-size: 1;
+}
+
 .about-me-container {
     height: 48vh;
     width: 43vw;
@@ -26,6 +38,8 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    height: 100%;
+    margin-bottom: -50px;
   }
   
   .icon {
@@ -94,4 +108,129 @@
     padding: 5px;
     color: white;
     cursor: pointer;
+}
+
+#settingsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  margin-bottom: -50px;
+  background-color: var(--primary);
+}
+
+#settings {
+  scrollbar-width: none;
+  overflow: auto;
+  margin-bottom: -50px;
+  height: 100%;
+  width: 100%;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text);
+}
+
+.cards > .card {
+  height: 20%;
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--secondary);
+  color: var(--text);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--boxShadow);
+  cursor: pointer;
+}
+#card-voice-assistant  {
+  margin-bottom: 50px;
+}
+.back {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  height: 30px;
+  width: 30px;
+  background-image: url("../assets/icons/back.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.color-picker-container, .tipography-picker-container, .tipography-size-picker-container, .assistant-picker-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.color-picker-card, .tipography-picker-card, .tipography-size-picker-card, .assistant-picker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--secondary);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tipography-picker-card, .assistant-picker-card {
+  width: 30%;
+  cursor: pointer;
+}
+.tipography-size-picker-card {
+  width: 20%;
+  cursor: pointer;
+}
+.tipography-picker-card.active, .tipography-size-picker-card.active, .assistant-picker-card.active {
+  border: 2px solid var(--text);
+}
+.color-picker-card:hover, .tipography-picker-card:hover, .assistant-picker-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-picker-card input[type="color"] {
+  width: 100px;
+  height: 100px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.color-picker-card label, .tipography-picker-card label, .tipography-size-picker-card label, .assistant-picker-card label{
+  font-size: calc(14px * var(--font-size));
+  color: var(--text);
+}
+
+.palette-call-action, .fonts-call-action, .font-size-call-action, .assistant-call-action {
+  color: var(--callAction);
+  font-weight: bold;
+  font-size: calc(1.25rem * var(--font-size));
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.palette-reset, .fonts-reset, .fonts-size-reset {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  background-image: url("../assets/icons/reset.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+.palette-reset:hover, .fonts-reset:hover {
+  rotate: 360deg;
 }

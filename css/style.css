@@ -6,11 +6,13 @@
     --callAction: #603870;
     --border: #0f0f0f;
     --boxShadow: rgba(0, 0, 0, 0.5);
+    --font: 'Poppins', sans-serif;
+    --font-size: 1;
   }
 
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font);
 }
 
 .center-btn {
@@ -70,7 +72,7 @@ body {
 .loading-text {
     position: absolute;
     color: var(--text);
-    font-size: 30px;
+    font-size: calc(30px * var(--font-size));
     font-weight: bold;
     bottom: 100px;
     left: 50%;
@@ -79,7 +81,7 @@ body {
 .info-text {
     position: absolute;
     color: #d8d8d8;
-    font-size: 25px;
+    font-size: calc(25px * var(--font-size));
     font-weight: bold;
     bottom: 60px;
     left: 50%;
@@ -107,8 +109,7 @@ body {
     background-color: var(--callAction);
     box-shadow: 0px -3px 15px 0px #a984b9 inset;
     color: var(--text);
-    font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
+    font-size: calc(2.5rem * var(--font-size));
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -167,7 +168,7 @@ body {
     box-shadow: 0px 0px 15px 0px var(--secondary);
     border-radius: 10px;
     color: var(--text);
-    font-size: 1.5rem;  
+    font-size: calc(1.5rem * var(--font-size));  
   }
   .helper {
     width: 100%;
@@ -185,7 +186,7 @@ body {
   }
   .helper-button {
     margin-top: 20px;
-    font-size: 1.5rem;
+    font-size: calc(1rem * var(--font-size));
     width: 50%;
     min-width: 200px;
     height: 50px;

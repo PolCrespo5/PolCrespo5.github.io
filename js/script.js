@@ -6,6 +6,7 @@ import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRe
 import { calculateObjectContainer } from './utilities.js';
 import { handleProjectSelection } from './projectUtils.js';
 import { generateCalendar } from './calendarUtil.js';
+import { settings } from './settings.js';
 
 // Constantes y variables globales
 const roomModelUrl = new URL('../assets/room.glb', import.meta.url);
@@ -428,7 +429,7 @@ function create2DObjectsCalendar() {
 }
 
 //--------------------------- ABOUT ME ------------------------------
-function create2DObjectsAboutMe() {
+export function create2DObjectsAboutMe() {
     const htmlContent = `
         <div class="about-me-frame">
             <div class="desktop">
@@ -475,10 +476,9 @@ function showMenu(divContainer) {
         menu.remove();
         return;
     }
-    console.log('showMenu');
     const menuHTML = `
         <div class="menu">
-            <p class="menu-item">Settings</p>
+            <p class="menu-item menu-item-settings">Settings</p>
             <p class="menu-item menu-item-exit">Exit</p>
         </div>
     `;
@@ -486,8 +486,11 @@ function showMenu(divContainer) {
     menuContainer.innerHTML = menuHTML;
     menuContainer.classList.add('menu-container');
     const taskbar = document.querySelector('.taskbar');
-    taskbar.appendChild(menuContainer); // Aquí lo agregamos al elemento taskbar
+    taskbar.appendChild(menuContainer);
     
+    const settingsBtn = menuContainer.querySelector('.menu-item-settings');
+    settingsBtn.addEventListener('click', () => settings());
+
     const exitBtn = menuContainer.querySelector('.menu-item-exit');
     exitBtn.addEventListener('click', () => {
         // Reactivar controles de la cámara
@@ -522,4 +525,37 @@ function helper() {
     closeBtn.addEventListener('click', () => {
         helperContainer.remove();
     });
+}
+
+export function setAssistantVoice(status) {
+    if (status) {
+        // Compro
+        if ('speechSynthesis' in window) {
+            const synth = window.speechSynthesis;
+            document.querySelectorAll('.speakable').forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    // Stop any ongoing speech
+                    synth.cancel();
+
+                    // Create a new SpeechSynthesisUtterance
+                    const utterance = new SpeechSynthesisUtterance(element.textContent);
+
+                    // Diu el text
+                    synth.speak(utterance);
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    // Stop speaking when the mouse leaves the element
+                    synth.cancel();
+                });
+            });
+        } else {
+            console.log('Web Speech API not supported in this browser.');
+        }
+    } else {
+        document.querySelectorAll('.speakable').forEach(element => {
+            element.removeEventListener('mouseenter', () => {});
+            element.removeEventListener('mouseleave', () => {});
+        });
+    }
 }
