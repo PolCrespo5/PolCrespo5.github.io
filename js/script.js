@@ -45,6 +45,7 @@ function init() {
     orbit.update();
     window.addEventListener('resize', onWindowResize);
     window.addEventListener('click', onMouseClick);
+    document.addEventListener('keydown', onKeyPress);
     document.getElementById('center-camera').addEventListener('click', centerCamera);
     document.getElementById('help-btn').addEventListener('click', helper);
 }
@@ -224,6 +225,61 @@ function onMouseClick(event) {
     }
 }
 
+function onKeyPress(event) {
+    if (isOnObject) {
+        return;
+    }
+    switch (event.key) {
+        case '1':
+            const objetoIntersectado = model.getObjectByName('Project1');
+            updateCameraPosition(objetoIntersectado.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado, -1, 0, 0);
+            break;
+        case '2':
+            const objetoIntersectado2 = model.getObjectByName('Project2');
+            updateCameraPosition(objetoIntersectado2.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado2, -1, 0, 0);
+            break;
+        case '3':
+            const objetoIntersectado3 = model.getObjectByName('Project3');
+            updateCameraPosition(objetoIntersectado3.position.clone().add(new THREE.Vector3(-7, -7.5, 0)), objetoIntersectado3, -1, 0, 0);
+            break;
+        case '4':
+            const objetoIntersectado4 = model.getObjectByName('mesh_0_1');
+            updateCameraPosition(objetoIntersectado4.position.clone().add(new THREE.Vector3(6, -1.25, -4.5)), objetoIntersectado4, 0.025, 0.025, 1);
+            break;
+        case '5':
+            const objetoIntersectado5 = model.getObjectByName('Calendar');
+            updateCameraPosition(objetoIntersectado5.position.clone().add(new THREE.Vector3(0, -7.45, 9)), objetoIntersectado5, 0, 0, 1);
+            break;
+        case 'h':
+            helper();
+            break;
+        case 'ArrowLeft':
+            //Move model to the left
+            camera.position.x -= 0.5;
+            break;
+        case 'ArrowRight':
+            //Move model to the right
+            camera.position.x += 0.5;
+            break;
+        case 'ArrowUp':
+            //Move model up
+            camera.position.y += 0.5;
+            break;
+        case 'ArrowDown':
+            //Move model down
+            camera.position.y -= 0.5;
+            break;
+        //espacio
+        case ' ':
+            camera.position.z += 0.5;
+            break;
+        //shift
+        case 'Shift':
+            camera.position.z -= 0.5;
+            break;
+    }
+}
+
 // Actualizar posición de la cámara
 function updateCameraPosition(newPosition, object, x, y, z) {
     orbit.enabled = false; // Deshabilitar controles de OrbitControls
@@ -339,7 +395,7 @@ function create2DObject(projectData) {
     sourceBtn.addEventListener('click', () => {
         window.open(projectData.redirectGithub);
     });
-
+    
     const exitBtn = div.querySelector('.next-button');
     exitBtn.addEventListener('click', () => {
         // Reactivar controles de la cámara
@@ -377,6 +433,22 @@ function create2DObject(projectData) {
             }
         });
     }
+    let isProcessingEvent = false;
+    document.addEventListener('keydown', (event) => {
+        if (isProcessingEvent) return;
+        isProcessingEvent = true;
+        if (event.key === 'Escape') {
+            isOnObject = false;
+            orbit.enabled = true;
+            renderer.domElement.style.pointerEvents = 'auto';
+            css2dRenderer.domElement.style.pointerEvents = 'none';
+            scene.remove(divContainer);
+            centerCamera();
+        }
+        setTimeout(() => {
+            isProcessingEvent = false;
+        }, 100);
+    });
 }
 
 //--------------------------- CALENDAR ------------------------------
@@ -434,6 +506,15 @@ export function create2DObjectsAboutMe() {
         <div class="about-me-frame">
             <div class="desktop">
                 <div class="icon trash"></div>
+                <div class="icon file first-file" style="aspect-ratio: 5 / 1.25;">
+                    <p class="speakable">About Me</p>
+                </div>
+                <div class="icon file second-file" style="aspect-ratio: 10 / 1.25;">
+                    <p class="speakable">Projects</p>
+                </div>
+                <div class="icon file third-file" style="aspect-ratio: 15 / 1.25;">
+                    <p class="speakable">Experience</p>
+                </div>
             </div>
             <div class="taskbar">
                 <div class="left">
@@ -504,26 +585,44 @@ function showMenu(divContainer) {
 }
 
 function helper() {
-    const helper = document.querySelector('.helper-container');
-    if (helper) {
-        helper.remove();
+    orbit.enabled = false;
+    isOnObject = true;
+    renderer.domElement.style.pointerEvents = 'none';
+    css2dRenderer.domElement.style.pointerEvents = 'auto';
+    const existingHelper = document.querySelector('.helper-container');
+    if (existingHelper) {
+        existingHelper.remove();
         return;
     }
-    const helperHTML = `
-        <div class="helper">
-            <p class="helper-item">Click on the projects to see more details</p>
-            <p class="helper-item">Click on the calendar to see my experience</p>
-            <p class="helper-item">Click on the desktop to see the menu</p>
-            <button class="helper-button">Close</button>
+    const helperContent = `
+        <div class="helper-content">
+            <p class="helper-item">Haz <strong>click</strong> en los sitios del modelo para ver más detalles</p>
+            <div class="helper-shortcuts">
+                <p>Atajos:</p>
+                <ul>
+                    <li><div class="shortcut-key">1</div> -> Proyecto 1</li>
+                    <li><div class="shortcut-key">2</div> -> Proyecto 2</li>
+                    <li><div class="shortcut-key">3</div> -> Proyecto 3</li>
+                    <li><div class="shortcut-key">4</div> -> Escritorio</li>
+                    <li><div class="shortcut-key">5</div> -> Experiencia</li>
+                </ul>
+            </div>
+            <div class="close-helper">X</div>
         </div>
     `;
+
     const helperContainer = document.createElement('div');
-    helperContainer.innerHTML = helperHTML;
+    helperContainer.innerHTML = helperContent;
     helperContainer.classList.add('helper-container');
     document.body.appendChild(helperContainer);
-    const closeBtn = helperContainer.querySelector('.helper-button');
-    closeBtn.addEventListener('click', () => {
+
+    const closeButton = helperContainer.querySelector('.close-helper');
+    closeButton.addEventListener('click', () => {
         helperContainer.remove();
+        orbit.enabled = true;
+        isOnObject = false;
+        renderer.domElement.style.pointerEvents = 'auto';
+        css2dRenderer.domElement.style.pointerEvents = 'none';
     });
 }
 
