@@ -36,11 +36,10 @@ loadModel();
 createLight();
 create2DRenderer();
 animate();
-isSafari();
 //--------------------------- INIT ------------------------------
 function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor('#444');
+    renderer.setClearColor('#bbb');
     document.body.appendChild(renderer.domElement);
     orbitSetttings();
     orbit.update();
@@ -651,9 +650,13 @@ export function setAssistantVoice(status) {
     }
 }
 function isSafari() {
-    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-        document.querySelector('.safari-alert').style.display = 'none';
-    } else {
-        document.querySelector('.safari-alert').style.display = 'block';
-    }
+    return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    if (isSafari()) {
+        document.querySelector('.safari-alert').style.display = 'block';
+    } else {
+        document.querySelector('.safari-alert').style.display = 'none';
+    }
+});
