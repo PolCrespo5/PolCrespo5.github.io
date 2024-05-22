@@ -36,6 +36,7 @@ loadModel();
 createLight();
 create2DRenderer();
 animate();
+isSafari();
 //--------------------------- INIT ------------------------------
 function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -647,5 +648,10 @@ export function setAssistantVoice(status) {
             element.removeEventListener('mouseenter', () => {});
             element.removeEventListener('mouseleave', () => {});
         });
+    }
+}
+function isSafari() {
+    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        document.querySelector('.safari-alert').style.display = 'none';
     }
 }

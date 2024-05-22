@@ -368,7 +368,15 @@ body {
   line-height: 30px;
   margin-right: 10px;
 }
-
+.dessigner {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  color: var(--text);
+}
+.safari-alert {
+  display: none;
+}
 @media (max-width: 600px) {
     .helper-container {
         width: 90%;
