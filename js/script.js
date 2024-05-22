@@ -653,5 +653,7 @@ export function setAssistantVoice(status) {
 function isSafari() {
     if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
         document.querySelector('.safari-alert').style.display = 'none';
+    } else {
+        document.querySelector('.safari-alert').style.display = 'block';
     }
 }
