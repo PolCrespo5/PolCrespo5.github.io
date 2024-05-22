@@ -109,19 +109,10 @@ function loadModel() {
             const action = mixer.clipAction(clip);
             action.play();
         });
-        document.getElementById('skip').style.display = 'flex'; // Ocultar el loader
-        const kineticElements = document.querySelectorAll('.kinetic');
-        // Ocultar cada elemento encontrado
-        kineticElements.forEach(element => {
-            element.style.display = 'none';
-        });
-
-        document.getElementById('skip').addEventListener('click', () => {
-            document.getElementById('loader').style.display = 'none'; // Ocultar el loader
-            setTimeout(() => {
-                isLoaded = true;
-            }, 50);
-        });
+        document.getElementById('loader').style.display = 'none';
+        setTimeout(() => {
+            isLoaded = true;
+        }, 50);
     })
     .catch(error => {
         console.error(error);

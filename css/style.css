@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 :root {
     --text: #F3F3F3;
     --primary: #6B6B6B;
@@ -68,87 +69,153 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-}
-.loading-text {
-    position: absolute;
-    color: var(--text);
-    font-size: calc(30px * var(--font-size));
-    font-weight: bold;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.info-text {
-    position: absolute;
-    color: #d8d8d8;
-    font-size: calc(25px * var(--font-size));
-    font-weight: bold;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.button {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    height: 80px;
-    width: 260px;
-    z-index: 9999;
-  }
-  
-  .button-skip {
-    height: 80px;
-    width: 260px;
-    border: none;
-    border-radius: 13px;
-    background-color: var(--callAction);
-    box-shadow: 0px -3px 15px 0px #a984b9 inset;
-    color: var(--text);
-    font-size: calc(2.5rem * var(--font-size));
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    transform: translateY(0px);
-    transition: all 0.2s ease;
-    cursor: pointer;
-  }
-.button-skip:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 0px 15px 0px var(--primary) inset;
-  }
-  
+} 
 
-.kinetic {
-    height: 80px;
-    position: relative;
-    width: 80px;
+.loading-text {
+  font-weight: bold;
+  font-size: calc(40px * var(--font-size));
+  line-height: 46px;
+  display: inline-block;
+  animation: shake 0.5s infinite;
+  color: var(--text);
+  position: absolute;
+  bottom: 10vh;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.2));
+}
+.space {
+  visibility: hidden;
+}
+.loading-text span {
+  font-family: 'Montserrat' !important;
+  position: relative;
+  display: inline-block;
+  text-transform: uppercase;
+  animation: waviy 1.5s infinite;
+  animation-delay: calc(.1s * var(--i));
+}
+@keyframes waviy {
+  0%,40%,100% {
+    transform: translateY(0)
   }
-  
-  .kinetic::after,
-  .kinetic::before {
-    animation: rotateA 2s linear infinite 0.5s;
-    border: 50px solid transparent;
-    border-bottom-color: var(--callAction);
-    box-shadow: 0px -3px 15px 0px var(--secondary) inset;
+  20% {
+    transform: translateY(-20px)
+  }
+}
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+  .cube {
+    position: absolute;
+    width: 1.5em;
+    height: 1.5em;
+    background: #a984b9;
+    -webkit-animation: move 3s ease-in-out infinite;
+            animation: move 3s ease-in-out infinite;
+    transform-style: preserve-3d;
+    box-shadow: 5em 5em 0.3em 0.1em #e4bde4;
+  }
+  .cube::before, .cube::after {
     content: "";
-    height: 0;
-    left: 0;
     position: absolute;
     top: 0;
-    width: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .cube::before {
+    background-color: #561d6d;
+    transform-origin: 100% 100%;
+    transform: rotateY(-90deg);
+  }
+  .cube::after {
+    background-color: #603870;
+    transform-origin: 0% 100%;
+    transform: rotateX(90deg);
+  }
+  .cube:nth-of-type(1) {
+    -webkit-animation-delay: -11.25s;
+            animation-delay: -11.25s;
+  }
+  .cube:nth-of-type(2) {
+    -webkit-animation-delay: -10.5s;
+            animation-delay: -10.5s;
+  }
+  .cube:nth-of-type(3) {
+    -webkit-animation-delay: -9.75s;
+            animation-delay: -9.75s;
+  }
+  .cube:nth-of-type(4) {
+    -webkit-animation-delay: -9s;
+            animation-delay: -9s;
+  }
+  @-webkit-keyframes move {
+    0%, 87.5%, 100% {
+      transform: translate(1.5em, 0em);
+    }
+    12.5% {
+      transform: translate(3em, 0em);
+    }
+    25% {
+      transform: translate(3em, 1.5em);
+    }
+    37.5%, 50% {
+      transform: translate(1.5em, 1.5em);
+    }
+    62.5% {
+      transform: translate(0em, 1.5em);
+    }
+    75% {
+      transform: translate(0em, 0em);
+    }
+  }
+  @keyframes move {
+    0%, 87.5%, 100% {
+      transform: translate(1.5em, 0em);
+    }
+    12.5% {
+      transform: translate(3em, 0em);
+    }
+    25% {
+      transform: translate(3em, 1.5em);
+    }
+    37.5%, 50% {
+      transform: translate(1.5em, 1.5em);
+    }
+    62.5% {
+      transform: translate(0em, 1.5em);
+    }
+    75% {
+      transform: translate(0em, 0em);
+    }
   }
   
-  .kinetic::before {
-    animation: rotateB 2s linear infinite;
-    transform: rotate(90deg);
+  .box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 4.5em;
+    height: 3em;
+    margin: 30vmin auto;
+    font-size: 75px;
+    transform-style: preserve-3d;
+    transform: rotateX(60deg) rotateZ(45deg);
   }
+  .box:hover * {
+    -webkit-animation-play-state: paused;
+            animation-play-state: paused;
+  }
+  .box:active * {
+    -webkit-animation-play-state: running;
+            animation-play-state: running;
+  }
+  
   .helper-container {
     position: fixed;
     width: 80%;
