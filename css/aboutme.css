@@ -40,39 +40,6 @@
     margin-bottom: -50px;
   }
   
-  .trash {
-    position: absolute;
-    aspect-ratio: 1 / 1.25;
-    height: 50px;
-    margin: 15px;
-    background-image: url("../assets/icons/trash.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
-  .file {
-    position: relative;
-    height: 50px;
-    margin: 15px;
-    background-image: url("../assets/icons/exe.webp");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  
-
-  .icon::after {
-    position: absolute;
-    left: 50%;
-    bottom: -25px;
-    transform: translateX(-50%);
-  }
-  
   .taskbar {
     position: relative;
     height: 50px;

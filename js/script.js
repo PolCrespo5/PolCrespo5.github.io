@@ -496,16 +496,7 @@ export function create2DObjectsAboutMe() {
     const htmlContent = `
         <div class="about-me-frame">
             <div class="desktop">
-                <div class="icon trash"></div>
-                <div class="icon file first-file" style="aspect-ratio: 5 / 1.25;">
-                    <p class="speakable">About Me</p>
-                </div>
-                <div class="icon file second-file" style="aspect-ratio: 10 / 1.25;">
-                    <p class="speakable">Projects</p>
-                </div>
-                <div class="icon file third-file" style="aspect-ratio: 15 / 1.25;">
-                    <p class="speakable">Experience</p>
-                </div>
+                
             </div>
             <div class="taskbar">
                 <div class="left">
@@ -651,7 +642,7 @@ export function setAssistantVoice(status) {
 }
 function isSafari() {
     return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-}
+} 
 
 document.addEventListener('DOMContentLoaded', (event) => {
     if (isSafari()) {
