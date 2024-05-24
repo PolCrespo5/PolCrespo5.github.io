@@ -11,86 +11,88 @@
 }
 
 .about-me-container {
-    background: #333;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: #333;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .about-me-frame {
-    height: 100%;
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    background: #000;
-    color: #555;
-    border-radius: 10px;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  background: #000;
+  color: #555;
+  border-radius: 10px;
 }
 
 .desktop {
-    flex: 1;
-    background-image: url("../assets/icons/windows10back.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100%;
-    margin-bottom: -50px;
-  }
-  
-  .taskbar {
-    position: relative;
-    height: 50px;
-    background-color: #1f252a;
-    display: flex;
-  }
-  
-  .left,
-  .right {
-    flex: 1;
-    display: flex;
-  }
-  
-  .right {
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 15px;
-  }
-  
-  .shortcut {
-    aspect-ratio: 1 / 1;
-    height: 25px;
-    margin: 12.5px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  
-  .shortcut.start {
-    background-image: url("../assets/icons/windows10.png");
-  }  
-  .shortcut.file-explorer {
-    background-image: url("../assets/icons/explore-folder.png");
-  }
-  
-  .menu-container {
-    position: absolute;
-    top: 0px;
-    left: 0;
-    transform: translate(0, -100%);
-    width: 200px;
-    background-color: #1f252a90;
+  flex: 1;
+  background-image: url("../assets/icons/windows10back.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  margin-bottom: -50px;
+}
+
+.taskbar {
+  position: relative;
+  height: 50px;
+  background-color: #1f252a;
+  display: flex;
+}
+
+.left,
+.right {
+  flex: 1;
+  display: flex;
+}
+
+.right {
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 15px;
+}
+
+.shortcut {
+  aspect-ratio: 1 / 1;
+  height: 25px;
+  margin: 12.5px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.shortcut.start {
+  background-image: url("../assets/icons/windows10.png");
+}
+
+.shortcut.file-explorer {
+  background-image: url("../assets/icons/explore-folder.png");
+}
+
+.menu-container {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  transform: translate(0, -100%);
+  width: 200px;
+  background-color: #1f252a90;
 }
 
 .menu-item {
-    padding: 5px;
-    color: white;
-    cursor: pointer;
+  padding: 5px;
+  color: white;
+  cursor: pointer;
 }
 
-#settingsContainer {
+#settingsContainer, #aboutMeContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,7 +121,7 @@
   margin-bottom: 20px;
 }
 
-.cards > .card {
+.cards>.card {
   height: 100%;
   width: 40%;
   margin: 10px;
@@ -130,6 +132,7 @@
   box-shadow: 0 0 10px var(--boxShadow);
   cursor: pointer;
 }
+
 .back {
   position: absolute;
   top: 10px;
@@ -142,13 +145,44 @@
   background-repeat: no-repeat;
   cursor: pointer;
 }
-
-.color-picker-container, .tipography-picker-container, .tipography-size-picker-container, .assistant-picker-container {
+.close {
+  position: absolute;
+  right: 48px;
+  top: 24px;
+  width: 14px;
+  height: 14px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #000;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
+.color-picker-container,
+.tipography-picker-container,
+.tipography-size-picker-container,
+.assistant-picker-container {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
-.color-picker-card, .tipography-picker-card, .tipography-size-picker-card, .assistant-picker-card {
+
+.color-picker-card,
+.tipography-picker-card,
+.tipography-size-picker-card,
+.assistant-picker-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,18 +193,26 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tipography-picker-card, .assistant-picker-card {
+.tipography-picker-card,
+.assistant-picker-card {
   width: 30%;
   cursor: pointer;
 }
+
 .tipography-size-picker-card {
   width: 20%;
   cursor: pointer;
 }
-.tipography-picker-card.active, .tipography-size-picker-card.active, .assistant-picker-card.active {
+
+.tipography-picker-card.active,
+.tipography-size-picker-card.active,
+.assistant-picker-card.active {
   border: 2px solid var(--text);
 }
-.color-picker-card:hover, .tipography-picker-card:hover, .assistant-picker-card:hover {
+
+.color-picker-card:hover,
+.tipography-picker-card:hover,
+.assistant-picker-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -182,12 +224,19 @@
   cursor: pointer;
   margin-bottom: 10px;
 }
-.color-picker-card label, .tipography-picker-card label, .tipography-size-picker-card label, .assistant-picker-card label{
+
+.color-picker-card label,
+.tipography-picker-card label,
+.tipography-size-picker-card label,
+.assistant-picker-card label {
   font-size: calc(14px * var(--font-size));
   color: var(--text);
 }
 
-.palette-call-action, .fonts-call-action, .font-size-call-action, .assistant-call-action {
+.palette-call-action,
+.fonts-call-action,
+.font-size-call-action,
+.assistant-call-action {
   color: var(--callAction);
   font-weight: bold;
   font-size: calc(1.25rem * var(--font-size));
@@ -196,7 +245,9 @@
   cursor: pointer;
 }
 
-.palette-reset, .fonts-reset, .fonts-size-reset {
+.palette-reset,
+.fonts-reset,
+.fonts-size-reset {
   position: absolute;
   top: 10px;
   right: 20px;
@@ -209,7 +260,9 @@
   cursor: pointer;
   transition: transform 0.5s;
 }
-.palette-reset:hover, .fonts-reset:hover {
+
+.palette-reset:hover,
+.fonts-reset:hover {
   rotate: 360deg;
 }
 
@@ -225,6 +278,7 @@
   .about-me-frame {
     padding: 5px;
   }
+
   .about-me-container {
     width: 425px;
     height: 238px;
@@ -273,7 +327,7 @@
     padding: 5px;
   }
 
-  .cards > .card {
+  .cards>.card {
     height: 100px;
     display: flex;
     justify-content: center;
@@ -289,12 +343,18 @@
     width: 15px;
   }
 
-  .color-picker-container, .tipography-picker-container, .tipography-size-picker-container, .assistant-picker-container {
+  .color-picker-container,
+  .tipography-picker-container,
+  .tipography-size-picker-container,
+  .assistant-picker-container {
     gap: 5px;
     margin-bottom: 40px;
   }
 
-  .color-picker-card, .tipography-picker-card, .tipography-size-picker-card, .assistant-picker-card {
+  .color-picker-card,
+  .tipography-picker-card,
+  .tipography-size-picker-card,
+  .assistant-picker-card {
     padding: 10px;
     border-radius: 5px;
   }
@@ -305,24 +365,31 @@
     margin-bottom: 5px;
   }
 
-  .palette-call-action, .fonts-call-action, .font-size-call-action, .assistant-call-action {
+  .palette-call-action,
+  .fonts-call-action,
+  .font-size-call-action,
+  .assistant-call-action {
     font-size: calc(1rem * var(--font-size));
     padding: 5px;
     border-radius: 5px;
   }
 
-  .palette-reset, .fonts-reset, .fonts-size-reset {
+  .palette-reset,
+  .fonts-reset,
+  .fonts-size-reset {
     top: 5px;
     right: 10px;
     height: 15px;
     width: 15px;
   }
 
-  .palette-reset:hover, .fonts-reset:hover {
+  .palette-reset:hover,
+  .fonts-reset:hover {
     rotate: 360deg;
   }
 
-  .tipography-picker-card, .assistant-picker-card {
+  .tipography-picker-card,
+  .assistant-picker-card {
     width: 40%;
   }
 
@@ -335,4 +402,54 @@
     height: 50px;
     margin-bottom: 5px;
   }
+}
+
+.apps {
+  margin: 10px;
+  font-size: 13px;
+  margin-bottom: 7px;
+  width: 56px;
+  text-align: center;
+  padding: 4px 5px 0px 5px;
+  cursor: context-menu;
+  border: 1px solid rgba(238, 238, 238, 0);
+  border-radius: 4px;
+  max-height: 78px;
+}
+
+.apps img {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  display: block;
+}
+
+.apps:hover {
+  background: rgba(97, 97, 97, 0.25);
+  border: 1px solid rgba(97, 97, 97, 0.5);
+}
+
+#aboutMe {
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+#aboutMe img {
+  width: 200px; /* ajusta el tamaño de la imagen según sea necesario */
+  height: auto;
+  border-radius: 50%; /* para hacer la imagen redonda, si lo deseas */
+  margin-right: 20px; /* espacio entre la imagen y la información */
+}
+
+
+.info h1 {
+  margin: 0;
+}
+
+.info p {
+  margin-top: 5px;
+  font-size: 16px;
+  color: var(--text);
 }

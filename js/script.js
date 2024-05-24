@@ -7,6 +7,7 @@ import { calculateObjectContainer } from './utilities.js';
 import { handleProjectSelection } from './projectUtils.js';
 import { generateCalendar } from './calendarUtil.js';
 import { settings } from './settings.js';
+import { showAboutMe } from './aboutMe.js';
 
 // Constantes y variables globales
 const roomModelUrl = new URL('../assets/room.glb', import.meta.url);
@@ -497,7 +498,9 @@ export function create2DObjectsAboutMe() {
     const htmlContent = `
         <div class="about-me-frame">
             <div class="desktop">
-                
+                <div class='apps'><img src='../assets/icons/file.ico'>
+                    <p>Pol Crespo</p>
+                </div>
             </div>
             <div class="taskbar">
                 <div class="left">
@@ -528,10 +531,13 @@ export function create2DObjectsAboutMe() {
     divContainer.position.set(5.7, -0.625, -12.5);
     
     const startShortcut = divAboutMe.querySelector('.shortcut.start');
+    const aboutMe = divAboutMe.querySelector('.apps');
     startShortcut.addEventListener('click', () => {
         showMenu(divContainer);
     });
-    
+    aboutMe.addEventListener('click', () => {
+        showAboutMe();
+    });    
 }
 
 function showMenu(divContainer) {
