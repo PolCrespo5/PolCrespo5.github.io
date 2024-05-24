@@ -1,5 +1,5 @@
 import { themePage, fontPage, fontSizePage, voiceAssistantPage } from './settingPages.js';
-import { create2DObjectsAboutMe } from './script.js';
+import { create2DObjectsAboutMe, removeCSS2DObject } from './script.js';
 export function settings() {
     //Delete Menu Container
     let menuContainer = document.querySelector('.menu-container');
@@ -56,6 +56,8 @@ export function settings() {
     });
     //Back
     back.addEventListener('click', () => {
+        //remove divContainer = new CSS2DObject(divAboutMe);
+        removeCSS2DObject();
         create2DObjectsAboutMe();
     });
 }

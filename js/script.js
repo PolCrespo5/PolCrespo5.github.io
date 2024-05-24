@@ -13,6 +13,7 @@ const roomModelUrl = new URL('../assets/room.glb', import.meta.url);
 const letterModelUrl = new URL('../assets/letter.glb', import.meta.url);
 const renderer = new THREE.WebGLRenderer();
 const scene = new THREE.Scene();
+let divContainer;
 let aspectStartRatio = window.innerWidth / window.innerHeight;
 let camera;
 if (aspectStartRatio < 1) {
@@ -373,7 +374,7 @@ function create2DObject(projectData) {
 
     div.addEventListener('click', event => event.stopPropagation());
     
-    const divContainer = new CSS2DObject(div);
+    divContainer = new CSS2DObject(div);
     scene.add(divContainer);
     divContainer.position.set(...projectData.position);
 
@@ -456,7 +457,7 @@ function create2DObjectsCalendar() {
 
     divAboutMe.addEventListener('click', event => event.stopPropagation());
     
-    const divContainer = new CSS2DObject(divAboutMe);
+    divContainer = new CSS2DObject(divAboutMe);
     scene.add(divContainer);
     divContainer.position.set(4.500, 7.8, -13.966);
 
@@ -522,7 +523,7 @@ export function create2DObjectsAboutMe() {
     
     divAboutMe.addEventListener('click', event => event.stopPropagation());
 
-    const divContainer = new CSS2DObject(divAboutMe);
+    divContainer = new CSS2DObject(divAboutMe);
     scene.add(divContainer);
     divContainer.position.set(5.7, -0.625, -12.5);
     
@@ -651,3 +652,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.querySelector('.safari-alert').style.display = 'none';
     }
 });
+
+export function removeCSS2DObject() {
+    // Remove the object from its parent in the scene
+    if (divContainer.parent) {
+        divContainer.parent.remove(divContainer);
+    }
+
+    // Remove the associated HTML element from the DOM
+    if (divContainer.element && divContainer.element.parentElement) {
+        divContainer.element.parentElement.removeChild(divContainer.element);
+    }
+}
