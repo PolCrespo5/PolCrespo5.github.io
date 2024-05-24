@@ -31,7 +31,7 @@ let mixer;
 let cameraOriginalPosition, cameraOriginalDistance;
 let isOnObject = false;
 let isLoaded = false;
-
+let objectsAnimations = [];
 // Inicializar la escena y cargar el modelo 3D
 init();
 loadModel();
@@ -92,6 +92,29 @@ function loadModel() {
         const model2 = gltf2.scene;
         scene.add(model);
         scene.add(model2);
+
+        model.traverse((child) => {
+            if (child.name.startsWith("Project") || child.name === 'Calendar' || child.name === "Screen") {
+                objectsAnimations.push(child); // Agrega el objeto a la lista si su nombre comienza con "Project"
+            }
+        });
+
+        if (objectsAnimations.length === 0) {
+            console.error("No se pudieron encontrar objetos 'Project' dentro del modelo cargado.");
+            return;
+        }
+        objectsAnimations.forEach((project) => {
+            let scale = { x: 1, y: 1, z: 1 };
+            let tween = new TWEEN.Tween(scale)
+                .to({ x: 1.1, y: 1.1, z: 1.1 }, 1000)
+                .easing(TWEEN.Easing.Quadratic.InOut)
+                .onUpdate(() => {
+                    project.scale.set(scale.x, scale.y, scale.z);
+                })
+                .yoyo(true)
+                .repeat(Infinity)
+                .start();
+        });
 
         const boundingBox = new THREE.Box3().setFromObject(model);
         cameraOriginalPosition = boundingBox.getCenter(new THREE.Vector3());
