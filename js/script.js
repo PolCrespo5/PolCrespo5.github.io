@@ -104,9 +104,9 @@ function loadModel() {
             return;
         }
         objectsAnimations.forEach((project) => {
-            let scale = { x: 1, y: 1, z: 1 };
+            let scale = { x: 1.05, y: 1.05, z: 1.05 };
             let tween = new TWEEN.Tween(scale)
-                .to({ x: 1.1, y: 1.1, z: 1.1 }, 1000)
+                .to({ x: 0.95, y: 0.95, z: 0.95 }, 1000)
                 .easing(TWEEN.Easing.Quadratic.InOut)
                 .onUpdate(() => {
                     project.scale.set(scale.x, scale.y, scale.z);
